@@ -1,0 +1,5 @@
+task,metric,mean,std,n_seeds
+arc_easy,acc,0.7941919191919192,0.0,3
+arc_easy,acc_norm,0.7807239057239057,0.0,3
+truthfulqa_mc2,HR_TQA_pre,0.4757255042739932,0.0,3
+truthfulqa_mc2,acc,0.5242744957260068,0.0,3

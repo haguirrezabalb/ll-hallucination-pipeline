@@ -1,0 +1,63 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+.env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Caches / logs
+.cache/
+*.log
+
+# Editor (VS Code)
+.vscode/
+
+
+# Docs (non-versioned)
+docs/_audit/
+docs/nf4_explicit_impact_*.md
+docs/nf4_explicit_impact_alpaca_1k.md
+
+# Scripts
+scripts/generate_nf4_explicit_impact_md.py
+
+# evals: publish only small summaries, keep raw runs local
+
+# Ignore raw lm-eval outputs everywhere
+evals/**/results_*.json
+evals/**/samples_*.jsonl
+
+# Ignore local heavy run directories (contain machine/user-specific paths)
+evals/baseline_nf4exp/
+evals/postqlora_nf4exp/
+evals/baseline_old_defaults4bit/
+evals/postqlora_old_defaults4bit/
+
+# Ignore symlinked views produced locally
+evals/**/by_adapter/
+
+# Baseline: ignore everything, then allow only published CSV summaries
+evals/baseline/**
+!evals/baseline/summary_preqlora_aggregated.csv
+!evals/baseline/summary_preqlora_per_seed.csv
+!evals/baseline/bootstrap_baseline_ci.csv
+
+# Post-QLoRA: ignore everything, then allow only published CSV summaries
+evals/postqlora/**
+!evals/postqlora/summary_postqlora_aggregated.csv
+!evals/postqlora/summary_postqlora_per_seed.csv
+
+# Always keep lightweight documentation and comparison CSVs
+!evals/README.md
+!evals/comparison/*.csv
+
+
+# Local snapshots (optional)
+snapshots/

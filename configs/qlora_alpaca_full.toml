@@ -1,0 +1,65 @@
+# -----------------------------------------------------------------------------
+# configs/qlora_alpaca_full.toml
+#
+# Purpose:
+# - SFT with QLoRA on yahma/alpaca-cleaned (full train split).
+#
+# Safety:
+# - Use a dedicated output directory per config to avoid overwriting adapters.
+# -----------------------------------------------------------------------------
+
+[model]
+base_model_path = "$MODEL_PATH"
+load_in_4bit = true
+
+# bnb (bitsandbytes) explicit 4-bit settings for reproducibility.
+bnb_4bit_quant_type = "nf4"
+bnb_4bit_compute_dtype = "bfloat16"
+bnb_4bit_use_double_quant = true
+
+# Backward-compatible aliases (Deprecated).
+quant_type = "nf4"
+compute_dtype = "bfloat16"
+use_double_quant = true
+
+[lora]
+lora_r = 64
+lora_alpha = 16
+lora_dropout = 0.05
+target_modules = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+
+[training]
+dataset_type = "hf"
+dataset_path = "yahma/alpaca-cleaned"
+
+instruction_column = "instruction"
+input_column = "input"
+output_column = "output"
+
+max_seq_length = 1024
+padding_side = "right"
+truncation = "right"
+
+per_device_train_batch_size = 1
+gradient_accumulation_steps = 16
+
+num_train_epochs = 3
+max_steps = -1
+
+learning_rate = 2e-4
+warmup_ratio = 0.03
+weight_decay = 0.0
+
+logging_steps = 10
+save_steps = 200
+max_grad_norm = 0.3
+
+gradient_checkpointing = true
+
+[seeds]
+train_seed = 42
+data_seed = 42
+model_seed = 42
+
+[output]
+lora_output_dir = "~/models/qwen3-8b-base-qlora-alpaca-full"

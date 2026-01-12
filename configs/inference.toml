@@ -1,0 +1,50 @@
+# -----------------------------------------------------------------------------
+# configs/inference.toml
+#
+# Purpose:
+# - Centralize the lm-eval-harness inference protocol used for baseline and post-QLoRA.
+#
+# Notes:
+# - We run the base model in 4-bit NF4 at inference time to keep pre/post comparisons
+#   under the same quantized runtime conditions.
+# - "pre-QLoRA" here means: no adapter weights applied.
+# -----------------------------------------------------------------------------
+
+[model]
+name = "Qwen3-8B-Base"
+path = "$MODEL_PATH"
+device = "cuda:0"
+
+[eval]
+harness = "eleutherai_lm_eval_harness"
+seeds = [0, 1, 2]
+num_fewshot = 0
+
+[eval.batching]
+batch_size = "auto"
+max_batch_size = 4
+
+[eval.quantization]
+load_in_4bit = true
+
+# bnb (bitsandbytes) explicit 4-bit settings for reproducibility.
+bnb_4bit_quant_type = "nf4"
+bnb_4bit_compute_dtype = "bfloat16"
+bnb_4bit_use_double_quant = true
+
+# Backward-compatible aliases (Deprecated).
+quant_type = "nf4"
+compute_dtype = "bfloat16"
+use_double_quant = true
+
+[eval.decoding.multiple_choice]
+# TruthfulQA_mc2 and ARC-Easy are scored via loglikelihood (no generation).
+mode = "loglikelihood"
+
+[eval.decoding.generation]
+# Not used when multiple_choice.mode = "loglikelihood".
+do_sample = false
+temperature = 0.0
+top_p = 1.0
+top_k = 1
+max_new_tokens = 256

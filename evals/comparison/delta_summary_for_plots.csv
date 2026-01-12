@@ -1,0 +1,6 @@
+adapter,delta_hr_truthfulqa,delta_acc_norm_arc
+alpaca_1k,-0.019528,0.057660
+alpaca_10k,-0.035678,0.058081
+alpaca_full,-0.044046,0.042929
+dolly_5k,0.070374,0.039562
+dolly_full,0.079150,0.062290

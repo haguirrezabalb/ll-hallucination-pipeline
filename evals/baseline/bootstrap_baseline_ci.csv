@@ -1,0 +1,10 @@
+[run_bootstrap_baseline] Searching for samples in evals/baseline ...
+Found 6 baseline runs
+
+task,seed,n,mean,CI_lo,CI_hi
+arc_easy,0,2376,0.794192,0.777778,0.810185
+arc_easy,1,2376,0.794192,0.777778,0.810185
+arc_easy,2,2376,0.794192,0.777778,0.810185
+truthfulqa_mc2,0,817,0.524274,0.494466,0.553722
+truthfulqa_mc2,1,817,0.524274,0.494466,0.553722
+truthfulqa_mc2,2,817,0.524274,0.494466,0.553722
